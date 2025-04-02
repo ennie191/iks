@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanskrit Shloka Educational App</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container my-4">
+        <header class="text-center mb-5">
+            <h1 class="display-4">Sanskrit Shloka Educational App</h1>
+            <p class="lead">Explore ancient wisdom with audio explanations in multiple languages</p>
+        </header>
+
+        <main>
+            <div class="accordion" id="shlokaAccordion">
+                {% for category in categories %}
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading-{{ category.id }}">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" 
+                                data-bs-target="#collapse-{{ category.id }}" aria-expanded="true" 
+                                aria-controls="collapse-{{ category.id }}">
+                            {{ category.name }}
+                        </button>
+                    </h2>
+                    <div id="collapse-{{ category.id }}" class="accordion-collapse collapse show" 
+                         aria-labelledby="heading-{{ category.id }}" data-bs-parent="#shlokaAccordion">
+                        <div class="accordion-body">
+                            {% for shloka in category.shlokas %}
+                            <div class="card mb-4 shloka-card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <h5 class="card-title mb-3">{{ category.name }} Shloka {{ loop.index }}</h5>
+                                            <p class="card-text sanskrit-text">{{ shloka.sanskrit }}</p>
+                                            <p class="card-text text-secondary"><em>{{ shloka.transliteration }}</em></p>
+                                        </div>
+                                        <button class="btn btn-outline-primary audio-btn" data-shloka-id="{{ shloka.id }}">
+                                            <i class="fas fa-volume-up"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </main>
+
+        <!-- Language Selection Modal -->
+        <div class="modal fade" id="languageModal" tabindex="-1" aria-labelledby="languageModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="languageModalLabel">Select Language</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="d-grid gap-2">
+                            <button type="button" class="btn btn-outline-primary language-btn" data-language="english">English</button>
+                            <button type="button" class="btn btn-outline-primary language-btn" data-language="hindi">Hindi</button>
+                            <button type="button" class="btn btn-outline-primary language-btn" data-language="marathi">Marathi</button>
+                            <button type="button" class="btn btn-outline-primary language-btn" data-language="kannada">Kannada</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Audio Player Modal -->
+        <div class="modal fade" id="audioModal" tabindex="-1" aria-labelledby="audioModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="audioModalLabel">Listening to Explanation</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="text-center">
+                            <div id="loading-spinner" class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <div id="audio-player-container" class="d-none">
+                                <audio id="audio-player" controls class="w-100">
+                                    Your browser does not support the audio element.
+                                </audio>
+                            </div>
+                            <div id="error-message" class="alert alert-danger d-none mt-3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

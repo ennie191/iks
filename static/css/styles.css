@@ -1,0 +1,75 @@
+/* General Styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Sanskrit Text Styling */
+.sanskrit-text {
+    font-family: 'Arial Unicode MS', 'Nirmala UI', sans-serif;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+}
+
+/* Card Styling */
+.shloka-card {
+    transition: transform 0.2s;
+    border-radius: 10px;
+}
+
+.shloka-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Audio Button Styling */
+.audio-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    padding: 0;
+}
+
+.audio-btn i {
+    font-size: 1.2rem;
+}
+
+/* Language Button Styling */
+.language-btn {
+    padding: 12px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+}
+
+/* Modal Enhancements */
+.modal-content {
+    border-radius: 12px;
+}
+
+.modal-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Audio Player Styling */
+#audio-player {
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+/* Spinner */
+#loading-spinner {
+    margin: 20px auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .card-title {
+        font-size: 1.1rem;
+    }
+    
+    .sanskrit-text {
+        font-size: 1rem;
+    }
+}
